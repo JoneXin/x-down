@@ -1,0 +1,49 @@
+{
+    "name": "x-down",
+    "version": "1.0.0",
+    "description": "一款cli工具 用于快速生成代码模板",
+    "main": "dist/cli.js",
+    "dest": "dist/cli.js",
+    "scripts": {
+        "build": "rollup -c",
+        "dev": "rollup -c -w"
+    },
+    "author": "Jone Xin",
+    "license": "ISC",
+    "devDependencies": {
+        "@babel/core": "^7.14.6",
+        "@babel/plugin-transform-runtime": "^7.15.0",
+        "@babel/preset-env": "^7.14.7",
+        "@babel/preset-typescript": "^7.14.5",
+        "@rollup/plugin-commonjs": "^19.0.1",
+        "@rollup/plugin-json": "^4.1.0",
+        "@rollup/plugin-node-resolve": "^13.0.2",
+        "rollup-plugin-babel": "^4.4.0",
+        "rollup": "^2.70.1",
+        "rollup-plugin-typescript2": "^0.31.2",
+        "typescript": "^4.6.2"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/JoneXin/Xlog"
+    },
+    "keywords": [
+        "xlog",
+        "logs",
+        "log",
+        "node"
+    ],
+    "bugs": {
+        "url": "https://github.com/JoneXin/Xlog/issues"
+    },
+    "dependencies": {
+        "@types/commander": "^2.12.2",
+        "@types/ora": "^3.2.0",
+        "commander": "^9.1.0",
+        "download-git-repo": "^3.0.2",
+        "git-clone": "^0.2.0",
+        "gitclone": "^2.0.0",
+        "readline": "^1.3.0",
+        "spinnies": "^0.5.1"
+    }
+}
