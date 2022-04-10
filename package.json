@@ -1,6 +1,6 @@
 {
     "name": "x-down",
-    "version": "0.2.2",
+    "version": "0.2.3",
     "description": "一款cli工具 用于快速生成代码模板",
     "main": "dist/cli.js",
     "dest": "dist/cli.js",

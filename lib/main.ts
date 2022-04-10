@@ -45,14 +45,14 @@ class Xdown {
 
 		this.program.parse(process.argv);
 		const options = this.program.opts();
-		let hasParam = false;
+		let hasParam = '';
 
 		yo('x-down', {
 			color: 'rainbow'
 		})
 
 		for (const opt in options) {
-			if (options[opt] === true) {
+			if (options[opt] === true && !!config[opt]) {
 				// 输入项目名
 				this.rl.question('项目名(my-app): ', ans => {
 					this.projectName = ans;
@@ -60,7 +60,7 @@ class Xdown {
 					this.spinner();
 					return this.handleCloneProject({ type: opt, lang: 'ts' });
 				})
-				hasParam = true;
+				hasParam = opt;
 			}
 		}
 
