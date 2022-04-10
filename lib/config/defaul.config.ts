@@ -1,6 +1,7 @@
 export default {
-     middway_address: 'https://gitee.com/JoinXin/xlog-server.git',
-     vue2_address: 'https://gitee.com/JoinXin/xlog-server.git',
-     vue3_address: 'https://gitee.com/JoinXin/xlog-server.git',
-     react_address: 'https://gitee.com/JoinXin/xlog-server.git'
-} 
+     m: 'https://gitee.com/JoinXin/xlog-server.git', // middway
+     vue2: '',
+     vue3: '',
+     r: '', //react
+     p: '' // rollup + ts = 3liabray
+}
