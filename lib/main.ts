@@ -1,7 +1,6 @@
 // #!/usr/bin/env node
-import { Command } from 'commander';
+const { Command } = require('commander');
 import * as readline from 'readline';
-import { resolve, join } from 'path';
 import Download from './utils/clone';
 import { cloneParam } from './typing'
 const { yo } = require('yoo-hoo')
@@ -14,9 +13,11 @@ class Xdown {
 	rl = null; // readline 实例
 	projectName: string = 'my-app' // 项目名
 	spinnies = null; // 加载框实例
+	config = {}; // 仓库配置
 
 	constructor() {
 		this.program = new Command();
+		this.config = config;
 		this.init();
 		this.initEvents();
 	}
@@ -28,11 +29,16 @@ class Xdown {
 
 		this.program
 			.version('0.1.0')
-			.option('-vue2', '基于vue2 js的前端开发模版', 'create vue2 programe')
-			.option('-vue3', '基于vue3 ts的前端开发模版', 'create vue2 programe')
-			.option('-m', '基于middway的ts的服务端单文件打包的模版', 'create middwat project')
-			.option('-p', '基于rollup的ts的第三方库开发的基本模版', '基于rollup的ts的第三方库开发的基本模版')
-			.option('-r', '基于react的ts的前端开发模版', '基于rollup的ts的第三方库开发的基本模版')
+			.option('-v2, --vue2', '基于vue2 js的前端开发模版')
+			.option('-v3, --vue3', '基于vue3 ts的前端开发模版')
+			.option('-rh, --react', '基于react hooks ts的前端开发模版')
+			.option('-mdw, --middway', '基于middway的ts的服务端单文件打包的模版')
+			.option('-rut, --rollup-ts', '基于rollup的ts的第三方库开发的基本模版')
+			.option('-es, --express', '基于express sequelize node_schedule 后端模版')
+			.option('-nt, --nest-typeorm', '基于nest typeorm  后端模版')
+			.option('-ns, --nest-sequelize', '基于nest sequelize  后端模版')
+			.option('-trv3, --tauri', '基于rust tauri vue3  桌面端模版')
+		// .option('-ru, --rust', '基于rust 及其常用依赖的 服务端开发模版')
 
 		this.rl = readline.createInterface({
 			input: process.stdin,
@@ -77,26 +83,24 @@ class Xdown {
 	 * 克隆项目
 	 * @param params
 	 */
-	private handleCloneProject(params: cloneParam) {
-
-		const aimDir = join(resolve(), this.projectName);
-		const { type, lang } = params;
+	private async handleCloneProject(params: cloneParam) {
+		const { type } = params;
+		const aimAddr = this.config[type];
 
 		// 下载对应的包
-		if (!config[type]) return console.log('该功能暂未开放!');
-		Download.cloneFromGit(config[type], aimDir, status => {
+		if (!aimAddr) return console.log('该功能暂未开放!');
 
-			if (status == false) {
-				this.spinnies.add('spinner-2', { text: '🍇 download suceess!' });
-			} else {
-				this.spinnies.add('spinner-2', { text: 'download err!' });
-				console.log(status);
-			}
+		const status = await Download.downloadFromGit(aimAddr, this.projectName);
+		if (!status) {
+			// this.spinnies.add('spinner-2', { text: 'download err!' });
+			this.spinnies.fail('spinner-1', { text: 'download Error!' });
+		} else {
+			this.spinnies.succeed('spinner-1', { text: '🍇 download suceess!' });
+		}
 
-			// 关闭加载
-			this.spinnies.stopAll();
-			process.exit(0);
-		});
+		// 关闭加载
+		this.spinnies.stopAll();
+		process.exit(0);
 	}
 
 	// 旋转框
